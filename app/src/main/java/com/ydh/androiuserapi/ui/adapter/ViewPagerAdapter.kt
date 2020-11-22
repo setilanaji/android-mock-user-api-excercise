@@ -1,4 +1,4 @@
-package com.ydh.androiuserapi.ui
+package com.ydh.androiuserapi.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

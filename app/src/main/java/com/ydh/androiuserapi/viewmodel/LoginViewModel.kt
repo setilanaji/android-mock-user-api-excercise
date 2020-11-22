@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ydh.androiuserapi.App
+import com.ydh.androiuserapi.util.App
 import com.ydh.androiuserapi.UserSession
+import com.ydh.androiuserapi.model.UserRegisterModel
 import com.ydh.androiuserapi.util.Email
 import com.ydh.androiuserapi.util.Password
 
@@ -13,10 +14,8 @@ class LoginViewModel(context: Context): ViewModel() {
     private val prefs: UserSession by lazy {
         UserSession(App.instance)
     }
-//    private lateinit var password: Password
-//    lateinit var email:Email
 
-    enum class RegisteredState {
+    enum class LoginState {
         LOGGED, UNLOGGED
     }
 
@@ -26,16 +25,15 @@ class LoginViewModel(context: Context): ViewModel() {
     private val _isPasswordValid: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-    private val _isLogged: MutableLiveData<RegisteredState> by lazy {
-        MutableLiveData<RegisteredState>()
+    private val _isLogged: MutableLiveData<LoginState> by lazy {
+        MutableLiveData<LoginState>()
     }
 
     init {
-        _isLogged.value = RegisteredState.UNLOGGED
-
+        _isLogged.value = LoginState.UNLOGGED
     }
 
-    val isLogged: LiveData<RegisteredState>
+    val isLogged: LiveData<LoginState>
         get() = _isLogged
 
     val isPasswordValid: LiveData<Boolean>
@@ -49,11 +47,23 @@ class LoginViewModel(context: Context): ViewModel() {
         val password = Password(passwordEntered)
         if (password.isValidPassword && email.isValidEmail) {
             if (isMatchLogin(emailEntered, passwordEntered)){
-                _isLogged.value = RegisteredState.LOGGED
+                _isLogged.value = LoginState.LOGGED
                 prefs.loggedIn = true
             }
         }
     }
 
-    private fun isMatchLogin(email: String, password: String): Boolean = prefs.email == email && prefs.password == password
+    private fun isMatchLogin(email: String, password: String): Boolean {
+        var userRegistered = prefs.userRegisteredList
+        if (userRegistered == null){
+            userRegistered = ArrayList<UserRegisterModel>()
+        }
+        var saved = false
+        userRegistered?.forEach { c ->
+            if (c.email == email && c.password == password){
+                saved = true
+            }
+        }
+        return saved
+    }
 }

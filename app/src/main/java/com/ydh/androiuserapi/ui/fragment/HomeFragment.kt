@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.databinding.FragmentHomeBinding
 import com.ydh.androiuserapi.model.Page
-import com.ydh.androiuserapi.ui.ViewPagerAdapter
+import com.ydh.androiuserapi.ui.adapter.ViewPagerAdapter
 
 
 class HomeFragment : Fragment() {

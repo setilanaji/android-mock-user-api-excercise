@@ -1,4 +1,4 @@
-package com.ydh.androiuserapi.ui
+package com.ydh.androiuserapi.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -54,7 +55,7 @@ class RegisterFragment : Fragment() {
         registerViewModel.apply {
             isEmailValid.observe(viewLifecycleOwner, isValidEmailObserver)
             isPasswordValid.observe(viewLifecycleOwner, isValidPasswordObserver)
-//            isLogged.observe(viewLifecycleOwner, isLoggedObserver)
+            isRegistered.observe(viewLifecycleOwner, isRegisteredObserver)
         }
     }
 
@@ -74,6 +75,11 @@ class RegisterFragment : Fragment() {
 
     private val isValidPasswordObserver = Observer<Boolean> { TODO("Not yet implemented") }
 
+    private val isRegisteredObserver = Observer<RegisterViewModel.RegisteredState> {
+        if (it == RegisterViewModel.RegisteredState.REGISTERED){
+            Toast.makeText(context, "Email is already in use", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private val emailListener = object: TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -108,6 +114,7 @@ class RegisterFragment : Fragment() {
         override fun afterTextChanged(s: Editable?) {
         }
     }
+
 
 
 }

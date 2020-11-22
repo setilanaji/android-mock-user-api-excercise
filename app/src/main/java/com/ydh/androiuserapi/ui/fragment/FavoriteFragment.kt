@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.databinding.FragmentFavoriteBinding
 import com.ydh.androiuserapi.model.User
-import com.ydh.androiuserapi.model.UserModel
-import com.ydh.androiuserapi.ui.UserAdapter
+import com.ydh.androiuserapi.model.user.UserModel
+import com.ydh.androiuserapi.ui.adapter.UserAdapter
 import com.ydh.androiuserapi.viewmodel.FavoriteViewModel
 import com.ydh.androiuserapi.viewmodel.factory.FavoriteViewModelFactory
 

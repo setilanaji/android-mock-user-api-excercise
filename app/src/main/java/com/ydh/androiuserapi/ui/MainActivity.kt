@@ -1,18 +1,14 @@
 package com.ydh.androiuserapi.ui
 
-import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import com.ydh.androiuserapi.App
+import com.ydh.androiuserapi.util.App
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.UserSession
 import com.ydh.androiuserapi.databinding.ActivityMainBinding
-import com.ydh.androiuserapi.databinding.FragmentOnboardingBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navigationController: NavController
@@ -30,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         if (!prefs.loggedIn){
             navigationController.navigate(R.id.onboardingFragment)
+        }else{
+            navigationController.navigate(R.id.homeFragment)
+
         }
     }
 

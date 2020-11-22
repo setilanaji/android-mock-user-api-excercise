@@ -1,4 +1,4 @@
-package com.ydh.androiuserapi.model
+package com.ydh.androiuserapi.model.user
 
 import com.google.gson.annotations.SerializedName
 

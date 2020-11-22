@@ -9,9 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.databinding.FragmentUserBinding
-import com.ydh.androiuserapi.model.UserModel
-import com.ydh.androiuserapi.ui.UserAdapter
-import com.ydh.androiuserapi.ui.UserMainAdapter
+import com.ydh.androiuserapi.model.user.UserModel
+import com.ydh.androiuserapi.ui.adapter.UserMainAdapter
 import com.ydh.androiuserapi.viewmodel.UserViewModel
 import com.ydh.androiuserapi.viewmodel.factory.UserViewModelFactory
 

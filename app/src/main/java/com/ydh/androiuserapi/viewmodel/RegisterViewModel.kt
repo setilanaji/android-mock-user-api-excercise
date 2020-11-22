@@ -1,11 +1,13 @@
 package com.ydh.androiuserapi.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ydh.androiuserapi.App
+import com.ydh.androiuserapi.util.App
 import com.ydh.androiuserapi.UserSession
+import com.ydh.androiuserapi.model.UserRegisterModel
 import com.ydh.androiuserapi.util.Email
 import com.ydh.androiuserapi.util.Name
 import com.ydh.androiuserapi.util.Password
@@ -56,11 +58,42 @@ class RegisterViewModel(context: Context): ViewModel() {
         val password = Password(passwordEntered)
         val name = Name(nameEntered)
         if (password.isValidPassword && email.isValidEmail && name.isValidName) {
-            _isRegistered.value = RegisteredState.REGISTERED
-            prefs.registered = true
-            prefs.email = emailEntered
-            prefs.password = passwordEntered
-            prefs.name = nameEntered
+            if (!checkRegistered(emailEntered)){
+               addNewUser(emailEntered, nameEntered, passwordEntered)
+            }else{
+                _isRegistered.value = RegisteredState.REGISTERED
+            }
         }
     }
+
+    private fun checkRegistered(email: String): Boolean {
+        var userRegistered = prefs.userRegisteredList
+        if (userRegistered == null){
+            userRegistered = ArrayList<UserRegisterModel>()
+        }
+        var saved = false
+        userRegistered.forEach { c ->
+            println(c.toString())
+            if (c.email == email){
+                saved = true
+                println("ketemu")
+            }
+        }
+
+        return saved
+    }
+        private fun addNewUser(email: String, name: String, password: String){
+//            val emailList: MutableList<String> = prefs.emailArray.toMutableList()
+//            emailList.add(email)
+//            prefs.emailArray = emailList.toTypedArray()
+
+            var userRegistered = prefs.userRegisteredList
+            if (userRegistered == null){
+                userRegistered = ArrayList()
+            }
+            userRegistered.add(UserRegisterModel(name, email, password))
+            prefs.userRegisteredList = userRegistered
+
+        }
+    
 }

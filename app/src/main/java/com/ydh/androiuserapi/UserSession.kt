@@ -3,6 +3,9 @@ package com.ydh.androiuserapi
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.ydh.androiuserapi.model.UserRegisterModel
 
 class UserSession(private val context: Context){
     companion object{
@@ -16,8 +19,12 @@ class UserSession(private val context: Context){
         const val REGISTERED_USER_EMAIL = "REGISTERED_USER_EMAIL"
         const val REGISTERED_USER_PASSWORD = "REGISTERED_USER_PASSWORD"
         const val REGISTERED_USER_NAME = "REGISTERED_USER_NAME"
+        const val REGISTERED_USER_LIST = "REGISTERED_USER_LIST"
+
 
     }
+
+    private val gson = Gson()
 
     private val prefs: SharedPreferences by lazy{
         context.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE)
@@ -47,34 +54,43 @@ class UserSession(private val context: Context){
         get() = prefs.getStringSet(REGISTERED_USER_EMAIL, emptySet())?.toTypedArray()?: emptyArray()
         set(value) = prefs.edit { putStringSet(REGISTERED_USER_EMAIL, value.toSet()) }
 
-    var passwordArray: Array<String>
-        get() = prefs.getStringSet(REGISTERED_USER_PASSWORD, emptySet())?.toTypedArray()?: emptyArray()
-        set(value) = prefs.edit { putStringSet(REGISTERED_USER_PASSWORD, value.toSet()) }
+//    var passwordArray: Array<String>
+//        get() = prefs.getStringSet(REGISTERED_USER_PASSWORD, emptySet())?.toTypedArray()?: emptyArray()
+//        set(value) = prefs.edit { putStringSet(REGISTERED_USER_PASSWORD, value.toSet()) }
+//
+//    var nameArray: Array<String>
+//        get() = prefs.getStringSet(REGISTERED_USER_NAME, emptySet())?.toTypedArray()?: emptyArray()
+//        set(value) = prefs.edit { putStringSet(REGISTERED_USER_NAME, value.toSet()) }
+//
+//    fun isRegisteredEmail(email: String): Boolean{
+//        val email: MutableList<String> = this.emailArray.toMutableList()
+//        var saved = false
+//        email.forEach { c ->
+//            if (c == "$email"){
+//                saved = true
+//            }
+//        }
+//        return saved
+//    }
 
-    var nameArray: Array<String>
-        get() = prefs.getStringSet(REGISTERED_USER_NAME, emptySet())?.toTypedArray()?: emptyArray()
-        set(value) = prefs.edit { putStringSet(REGISTERED_USER_NAME, value.toSet()) }
+//    fun isRegisteredPassword(password: String): Boolean{
+//        val password: MutableList<String> = this.passwordArray.toMutableList()
+//        var saved = false
+//        password.forEach { c ->
+//            if (c == "$password"){
+//                saved = true
+//            }
+//        }
+//        return saved
+//    }
 
-    fun isRegisteredEmail(email: String): Boolean{
-        val email: MutableList<String> = this.emailArray.toMutableList()
-        var saved = false
-        email.forEach { c ->
-            if (c == "$email"){
-                saved = true
-            }
+
+    var userRegisteredList: ArrayList<UserRegisterModel>?
+        get() {
+            val jsonString = prefs.getString(REGISTERED_USER_LIST, null) ?: return null
+            return gson.fromJson(jsonString, object : TypeToken<ArrayList<UserRegisterModel>>() {}.type)
         }
-        return saved
-    }
+        set(value) = prefs.edit { putString(REGISTERED_USER_LIST, gson.toJson(value)) }
 
-    fun isRegisteredPassword(password: String): Boolean{
-        val password: MutableList<String> = this.passwordArray.toMutableList()
-        var saved = false
-        password.forEach { c ->
-            if (c == "$password"){
-                saved = true
-            }
-        }
-        return saved
-    }
 
 }

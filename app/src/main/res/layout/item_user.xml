@@ -6,7 +6,7 @@
     <data>
         <variable
             name="user"
-            type="com.ydh.androiuserapi.model.UserModel" />
+            type="com.ydh.androiuserapi.model.user.UserModel" />
     </data>
 
 

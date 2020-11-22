@@ -94,13 +94,11 @@ class LoginFragment : Fragment() {
     private val isValidPasswordObserver = Observer<Boolean> { TODO("Not yet implemented") }
 
     private val isLoggedObserver =
-        Observer<LoginViewModel.RegisteredState> { t ->
+        Observer<LoginViewModel.LoginState> { t ->
             when(t){
-                LoginViewModel.RegisteredState.LOGGED -> {
-//                    Toast.makeText(requireContext(), "Login is succes", Toast.LENGTH_LONG).show()
+                LoginViewModel.LoginState.LOGGED -> {
                     this.findNavController().navigate(R.id.homeFragment)
                 }
-                LoginViewModel.RegisteredState.UNLOGGED -> Toast.makeText(requireContext(), "Login is un succeed", Toast.LENGTH_LONG).show()
             }
         }
 
