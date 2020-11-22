@@ -38,16 +38,16 @@ class UserAdapter(
         notifyDataSetChanged()
     }
 
-    fun removeAt(position: Int) {
-        this.userList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-    fun restoreItem(item: User, position: Int) {
-        val arrayList = ArrayList(userList)
-        arrayList.add(position, item)
-        userList = arrayList
-        notifyItemInserted(position)
-    }
+//    fun removeAt(position: Int) {
+//        this.userList.removeAt(position)
+//        notifyItemRemoved(position)
+//    }
+//    fun restoreItem(item: User, position: Int) {
+//        val arrayList = ArrayList(userList)
+//        arrayList.add(position, item)
+//        userList = arrayList
+//        notifyItemInserted(position)
+//    }
 
     override fun getItemCount(): Int {
         return userList.size
