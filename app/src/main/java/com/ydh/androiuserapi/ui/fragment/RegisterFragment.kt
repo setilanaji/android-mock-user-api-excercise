@@ -67,8 +67,8 @@ class RegisterFragment : Fragment() {
         registerViewModel.completedForm(
             binding.etRegisterUserPassword.text.toString(),
             binding.etRegisterUserEmail.text.toString(),
-            binding.etRegisterUserName.text.toString())
-
+            binding.etRegisterUserName.text.toString()
+        )
     }
 
     private val isValidEmailObserver = Observer<Boolean> { TODO("Not yet implemented") }

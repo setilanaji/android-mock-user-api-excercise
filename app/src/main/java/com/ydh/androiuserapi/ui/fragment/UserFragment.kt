@@ -1,6 +1,8 @@
 package com.ydh.androiuserapi.ui.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,7 @@ class UserFragment : Fragment() {
         setViewModel()
         setData()
         setView()
+        setListener()
         setObserver()
         return binding.root
     }
@@ -40,6 +43,23 @@ class UserFragment : Fragment() {
         userViewModel = ViewModelProviders.of(this, UserViewModelFactory(this.context)).get(
                 UserViewModel::class.java)
     }
+
+    private fun setListener(){
+        binding.etUserFilter.addTextChangedListener(filterListener)
+    }
+    private val filterListener = object: TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            myAdapter?.filterData(s.toString())
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            myAdapter?.filterData(s.toString())
+        }
+    }
+
 
     private fun setView(){
         binding.rvUserFiltered.adapter = myAdapter
