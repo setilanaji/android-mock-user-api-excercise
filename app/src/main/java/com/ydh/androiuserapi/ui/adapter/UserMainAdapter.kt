@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.databinding.ItemUserMainBinding
-import com.ydh.androiuserapi.model.User
 import com.ydh.androiuserapi.model.user.UserModel
 
 class UserMainAdapter(
@@ -36,16 +35,24 @@ class UserMainAdapter(
         notifyDataSetChanged()
     }
 
-    //    fun filterData(text: String){
-//        if (text.isEmpty()){
-//            userList = userListTemp
-//        }else{
-//            userListTemp = userList
-//           val filteredList = userList.filter { it.name.first.contains(text) }
-//            this.userList = filteredList as MutableList<UserModel>
-//        }
-//        notifyDataSetChanged()
-//    }
+    //and assigning it to the list with notifydatasetchanged method
+    private fun filterList(filteredNames: ArrayList<UserModel>) {
+        this.userList = filteredNames
+        notifyDataSetChanged()
+    }
+
+    fun filter(text: String) {
+        val filteredNames: ArrayList<UserModel> = ArrayList()
+
+        for (s in userList) {
+            if (s.name.first.toLowerCase().contains(text.toLowerCase())) {
+                filteredNames.add(s)
+            }
+        }
+
+        filterList(filteredNames)
+    }
+
     class PostsDiffUtilCallback(private val oldList: List<UserModel>, private val newList: List<UserModel>) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
 

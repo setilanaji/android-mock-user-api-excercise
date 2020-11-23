@@ -3,11 +3,11 @@ package com.ydh.androiuserapi.ui.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.ydh.androiuserapi.R
 import com.ydh.androiuserapi.databinding.FragmentUserBinding
@@ -26,8 +26,8 @@ class UserFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false)
 
@@ -52,11 +52,11 @@ class UserFragment : Fragment() {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            myAdapter?.filterData(s.toString())
+            myAdapter?.filter(s.toString())
         }
 
         override fun afterTextChanged(s: Editable?) {
-            myAdapter?.filterData(s.toString())
+            myAdapter?.filter(s.toString())
         }
     }
 
@@ -74,5 +74,7 @@ class UserFragment : Fragment() {
             myAdapter?.setData(it as MutableList<UserModel>)
         })
     }
+
+
 
 }

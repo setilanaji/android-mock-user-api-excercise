@@ -49,6 +49,7 @@ class UserAdapter(
 //        notifyItemInserted(position)
 //    }
 
+
     override fun getItemCount(): Int {
         return userList.size
     }
